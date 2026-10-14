@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PlayGround FPS — Preview Ready</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: #0b0e14; color: #eef2ff; }
+  header { padding: 20px 24px; border-bottom: 1px solid #263042; background: #111726; }
+  header h1 { margin: 0; font-size: 22px; }
+  header p { margin: 6px 0 0; color: #9fb0cc; font-size: 14px; }
+  main { max-width: 960px; margin: 0 auto; padding: 20px 16px 40px; }
+  .hud { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+  .card { flex: 1 1 160px; background: #141c2e; border: 1px solid #263042; border-radius: 10px; padding: 12px 14px; }
+  .card small { display: block; color: #9fb0cc; font-size: 12px; }
+  .card strong { font-size: 22px; }
+  #stage { position: relative; border: 1px solid #263042; border-radius: 12px; overflow: hidden; background: #05070c; }
+  canvas { display: block; width: 100%; height: auto; }
+  #crosshair { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+  #crosshair span { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; box-shadow: 0 0 0 2px rgba(0,0,0,.5); position: relative; }
+  #crosshair span::after { content: ""; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; background: #ff5252; border-radius: 50%; }
+  .controls { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  button { cursor: pointer; border: 0; border-radius: 8px; padding: 12px 18px; font-size: 16px; font-weight: 700; background: #2f7bff; color: #fff; }
+  button.secondary { background: #1d2638; color: #dbe4ff; border: 1px solid #33415c; font-weight: 600; }
+  footer { color: #8b98b3; font-size: 12px; text-align: center; padding: 18px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>PlayGround FPS — Staging Preview</h1>
+  <p>Static preview is serving. Full AAA build follows. Desktop 1440×900 and mobile 390×844 supported.</p>
+</header>
+<main>
+  <div class="hud">
+    <div class="card"><small>SCORE</small><strong id="score">0</strong></div>
+    <div class="card"><small>HEALTH</small><strong id="health">100</strong></div>
+    <div class="card"><small>STATUS</small><strong id="status">READY</strong></div>
+  </div>
+  <div id="stage">
+    <canvas id="scene" width="960" height="480"></canvas>
+    <div id="crosshair"><span></span></div>
+  </div>
+  <div class="controls">
+    <button id="playBtn" type="button">Play</button>
+    <button id="shotBtn" class="secondary" type="button">Fire</button>
+  </div>
+</main>
+<footer>PlayGround preview — rendered locally without external assets.</footer>
+<script>
+  const canvas = document.getElementById('scene');
+  const ctx = canvas.getContext('2d');
+  const scoreEl = document.getElementById('score');
+  const statusEl = document.getElementById('status');
+  let score = 0, started = false, t = 0;
+  function draw() {
+    t += 0.03;
+    const w = canvas.width, h = canvas.height;
+    const sky = ctx.createLinearGradient(0, 0, 0, h);
+    sky.addColorStop(0, '#1b2a4a');
+    sky.addColorStop(0.55, '#3a5a8c');
+    sky.addColorStop(0.56, '#5c6b4a');
+    sky.addColorStop(1, '#20291c');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#ffcf5c';
+    ctx.beginPath();
+    ctx.arc(w * 0.8, h * 0.22, 26, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(0,0,0,.35)';
+    for (let i = 0; i < 8; i++) {
+      const x = ((i * 173 + t * 40) % (w + 160)) - 80;
+      ctx.fillRect(x, h * 0.58 + (i % 3) * 26, 90, 46);
+    }
+    ctx.strokeStyle = 'rgba(255,255,255,.25)';
+    ctx.beginPath();
+    for (let x = 0; x <= w; x += 48) {
+      ctx.moveTo(x + (t * 60 % 48), h * 0.62);
+      ctx.lineTo(x - 120 + (t * 60 % 48), h);
+    }
+    ctx.stroke();
+    if (started) {
+      ctx.fillStyle = '#ff5252';
+      const tx = w / 2 + Math.sin(t * 1.7) * w * 0.28;
+      const ty = h * 0.42 + Math.cos(t * 2.3) * 40;
+      ctx.beginPath();
+      ctx.arc(tx, ty, 18, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 14px system-ui';
+      ctx.textAlign = 'center';
+      ctx.fillText('TARGET', tx, ty - 26);
+    }
+    requestAnimationFrame(draw);
+  }
+  document.getElementById('playBtn').addEventListener('click', () => {
+    started = true;
+    statusEl.textContent = 'PLAYING';
+  });
+  document.getElementById('shotBtn').addEventListener('click', () => {
+    if (!started) started = true;
+    score += 10;
+    scoreEl.textContent = String(score);
+    statusEl.textContent = 'PLAYING';
+  });
+  draw();
+</script>
+</body>
+</html>
