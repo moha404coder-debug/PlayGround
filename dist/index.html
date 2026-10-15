@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فحص هاتفي من الاختراق</title>
+<style>
+  :root{color-scheme:light dark}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:#0f172a;color:#f1f5f9;line-height:1.7}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 64px}
+  header{background:linear-gradient(135deg,#06b6d4,#3b82f6);border-radius:16px;padding:28px 22px;text-align:center;color:#fff}
+  header h1{margin:0 0 8px;font-size:28px}
+  header p{margin:0;opacity:.95}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:18px;margin-top:16px}
+  .card h2{margin:0 0 10px;font-size:19px;color:#7dd3fc}
+  .grid{display:grid;gap:12px}
+  @media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
+  label.item{display:flex;gap:10px;align-items:flex-start;background:#0b1220;border:1px solid #334155;border-radius:10px;padding:12px;cursor:pointer}
+  label.item input{margin-top:6px;width:18px;height:18px;accent-color:#22c55e}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  button{border:0;border-radius:10px;padding:12px 18px;font-size:16px;font-weight:700;cursor:pointer}
+  #checkBtn{background:#22c55e;color:#052e16}
+  #resetBtn{background:#334155;color:#fff}
+  #result{margin-top:14px;border-radius:12px;padding:16px;font-weight:700;display:block}
+  .ok{background:#052e16;border:1px solid #22c55e;color:#bbf7d0}
+  .warn{background:#451a03;border:1px solid #f59e0b;color:#fde68a}
+  .danger{background:#450a0a;border:1px solid #ef4444;color:#fecaca}
+  ol,ul{margin:8px 0;padding-inline-start:22px}
+  code{background:#020617;padding:2px 6px;border-radius:6px}
+  footer{margin-top:18px;font-size:13px;opacity:.8;text-align:center}
+  a{color:#7dd3fc}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🔒 فحص هاتفي من الاختراق</h1>
+    <p>فحص سريع من 8 علامات شائعة تدل على اختراق الهاتف — بدون تثبيت أي تطبيق</p>
+  </header>
+
+  <div class="card">
+    <h2>1) أجب عن الأسئلة التالية</h2>
+    <p style="margin-top:0">ضع علامة ✔ أمام كل عرض لاحظته خلال الأسبوعين الأخيرين، ثم اضغط «احسب النتيجة».</p>
+    <div class="grid" id="checks">
+      <label class="item"><input type="checkbox" value="3"> <span>بطارية تنفد بسرعة غير معتادة أو هاتف يسخن بدون استخدام</span></label>
+      <label class="item"><input type="checkbox" value="3"> <span>استهلاك بيانات مرتفع ومفاجئ بدون سبب واضح</span></label>
+      <label class="item"><input type="checkbox" value="2"> <span>تطبيقات غريبة لم تقم بتثبيتها بنفسك</span></label>
+      <label class="item"><input type="checkbox" value="2"> <span>نوافذ منبثقة وإعلانات كثيرة حتى خارج المتصفح</span></label>
+      <label class="item"><input type="checkbox" value="2"> <span>رسائل SMS أو واتساب غريبة أُرسلت من هاتفك دون علمك</span></label>
+      <label class="item"><input type="checkbox" value="3"> <span>بطء شديد وتعليق متكرر رغم مساحة فارغة كافية</span></label>
+      <label class="item"><input type="checkbox" value="2"> <span>أذونات حساسة (كاميرا / ميكروفون / موقع) لتطبيقات لا تحتاجها</span></label>
+      <label class="item"><input type="checkbox" value="3"> <span>إعادة تشغيل تلقائية أو مكالمات/ضوضاء غريبة أثناء المكالمة</span></label>
+    </div>
+    <div class="actions">
+      <button id="checkBtn" type="button">احسب النتيجة</button>
+      <button id="resetBtn" type="button">إعادة تعيين</button>
+    </div>
+    <div id="result" class="ok">النتيجة ستظهر هنا بعد الفحص. كل الفحص يتم داخل متصفحك ولا تُرسل أي بيانات.</div>
+  </div>
+
+  <div class="card">
+    <h2>2) ماذا تفعل الآن؟</h2>
+    <ol>
+      <li>احذف أي تطبيق مجهول، وأوقف أذونات الكاميرا والميكروفون والموقع غير الضرورية.</li>
+      <li>حدّث نظام التشغيل وجميع التطبيقات، وفعّل <code>Google Play Protect</code> أو فحص التطبيقات.</li>
+      <li>غيّر كلمات المرور المهمة وفعّل التحقق بخطوتين، وراجع الجلسات النشطة.</li>
+      <li>إذا استمرت الأعراض: انسخ بياناتك ثم أعد ضبط المصنع من مصدر رسمي.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>3) علامات الأمان الجيد</h2>
+    <ul>
+      <li>لا توجد تطبيقات مجهولة، والبطارية والبيانات مستقرة.</li>
+      <li>أذونات التطبيقات محدودة، والنظام محدّث لآخر إصدار.</li>
+      <li>التحقق بخطوتين مفعّل ولا توجد جلسات دخول غريبة.</li>
+    </ul>
+  </div>
+
+  <footer>صفحة توعوية — ليست بديلاً عن فحص مختص. آخر تحديث: 2026.</footer>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('checkBtn');
+  var reset=document.getElementById('resetBtn');
+  var result=document.getElementById('result');
+  function calc(){
+    var boxes=document.querySelectorAll('#checks input:checked');
+    var score=0; boxes.forEach(function(b){score+=parseInt(b.value,10)||0;});
+    var cls='ok',txt='';
+    if(score===0){txt='✅ ممتاز (0): لا توجد علامات اختراق واضحة. حافظ على التحديثات والنسخ الاحتياطي.';}
+    else if(score<=5){cls='warn';txt='⚠️ خطر منخفض ('+score+'/20): راقب الهاتف، راجع التطبيقات والأذونات.';}
+    else if(score<=11){cls='warn';txt='⚠️ خطر متوسط ('+score+'/20): احذف التطبيقات المشبوهة، افحص البيانات، وغيّر كلمات المرور.';}
+    else{cls='danger';txt='🚨 خطر مرتفع ('+score+'/20): يُنصح بفحص عميق، نسخ احتياطي، وإعادة ضبط المصنع إذا لزم.';}
+    result.className=cls; result.textContent=txt;
+  }
+  btn.addEventListener('click',calc);
+  reset.addEventListener('click',function(){
+    document.querySelectorAll('#checks input').forEach(function(b){b.checked=false;});
+    result.className='ok'; result.textContent='تمت إعادة التعيين. أعد الفحص عند الحاجة.';
+  });
+})();
+</script>
+</body>
+</html>
